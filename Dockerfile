@@ -39,10 +39,6 @@ RUN set -ex; \
 	wget http://www.vdberg.org/~richard/tcpping; \
 	chmod 777 tcpping; \
 	cd /var/www/html; \
-# Add rsyslog
-ADD http://alpine.adiscon.com/rsyslog@lists.adiscon.com-5a55e598.rsa.pub /etc/apk/keys
-RUN echo 'http://alpine.adiscon.com/3.7/stable' >> /etc/apk/repositories
-RUN apk add rsyslog
 # ========
 # install the PHP extensions we need and xdebug
 # ======== 
@@ -74,6 +70,11 @@ RUN apk add rsyslog
 	\
 	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
 	rm -rf /var/lib/apt/lists/*
+	
+# Add rsyslog
+ADD http://alpine.adiscon.com/rsyslog@lists.adiscon.com-5a55e598.rsa.pub /etc/apk/keys
+RUN echo 'http://alpine.adiscon.com/3.7/stable' >> /etc/apk/repositories
+RUN apk add rsyslog
 
 #install redis php extension
 ENV PHPREDIS_VERSION=4.0.2
